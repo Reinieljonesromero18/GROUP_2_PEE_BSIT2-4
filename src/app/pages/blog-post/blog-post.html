@@ -1,0 +1,73 @@
+@if (post(); as blogPost) {
+<!-- Main Post -->
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <app-post-layout [post]="blogPost" />
+
+    <!-- Navigation Links -->
+    <nav class="mt-12 flex gap-4 max-w-4xl">
+      <a
+        routerLink="/"
+        class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+      >
+        ← Back to Home
+      </a>
+      <a
+        routerLink="/about"
+        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+      >
+        Learn More
+      </a>
+    </nav>
+  </div>
+</div>
+
+<!-- Related Posts Section -->
+@if (getRelatedPosts().length > 0) {
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      @for (post of getRelatedPosts(); track post.id) {
+      <a
+        [routerLink]="['/post', post.slug]"
+        class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+      >
+        <div class="h-40 bg-gray-200 overflow-hidden">
+          <img
+            [src]="post.imageUrl"
+            [alt]="post.title"
+            width="400"
+            height="200"
+            class="w-full h-full object-cover hover:scale-105 transition duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 mb-2 line-clamp-2">
+            {{ post.title }}
+          </h3>
+          <p class="text-sm text-gray-600 line-clamp-2">
+            {{ post.excerpt }}
+          </p>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+</section>
+}
+} @else {
+<!-- Not Found -->
+<div class="min-h-screen bg-gray-50 flex items-center justify-center">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
+    <p class="text-gray-600 mb-8">Sorry, the article you're looking for doesn't exist.</p>
+    <a
+      routerLink="/"
+      class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition"
+    >
+      Back to Home
+    </a>
+  </div>
+</div>
+}

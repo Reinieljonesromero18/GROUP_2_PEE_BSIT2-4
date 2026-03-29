@@ -1,0 +1,137 @@
+@let blogPost = post();
+
+<article class="bg-white rounded-lg shadow-lg overflow-hidden">
+  <!-- Hero Image -->
+  <div class="relative w-full h-96 bg-gray-300 overflow-hidden flex items-center justify-center">
+    <img
+      [src]="blogPost.imageUrl"
+      [alt]="blogPost.title"
+      loading="lazy"
+      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%221200%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%23666%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EImage unavailable%3C/text%3E%3C/svg%3E'"
+      class="w-full h-full object-cover"
+    />
+    <!-- Overlay with content -->
+    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8">
+      <span
+        class="inline-block bg-green-600 text-white px-4 py-2 rounded-full mb-4 w-fit"
+      >
+        {{ blogPost.category }}
+      </span>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        {{ blogPost.title }}
+      </h1>
+      <div class="flex items-center text-gray-200 text-sm space-x-4">
+        <span>{{ blogPost.date | slice : 0 : 10 }}</span>
+        <span>•</span>
+        <span>{{ blogPost.readTime }} min read</span>
+        <span>•</span>
+        <span>By {{ blogPost.author }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-4xl mx-auto px-6 md:px-8 py-12">
+    <!-- Introduction -->
+    <div class="mb-12">
+      <p class="text-xl text-gray-700 leading-relaxed mb-6">
+        {{ blogPost.excerpt }}
+      </p>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        {{ blogPost.content }}
+      </p>
+    </div>
+
+    <!-- Sections -->
+    @for (section of blogPost.sections; track section.heading) {
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center">
+        <span class="w-1 h-10 bg-green-600 rounded-full mr-4"></span>
+        {{ section.heading }}
+      </h2>
+
+      <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+        {{ section.content }}
+      </p>
+
+      <!-- Subsections -->
+      @if (section.subsections) {
+      <div class="space-y-8 ml-4 md:ml-8">
+        @for (subsection of section.subsections; track subsection.title) {
+        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-green-600">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            {{ subsection.title }}
+          </h3>
+          <p class="text-gray-600 mb-4">{{ subsection.text }}</p>
+
+          <!-- Examples -->
+          @if (subsection.examples && subsection.examples.length > 0) {
+          <div class="bg-white p-4 rounded border border-green-200 mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Examples:</h4>
+            <ul class="space-y-2">
+              @for (example of subsection.examples; track example) {
+              <li class="flex items-start">
+                <span
+                  class="inline-block w-2 h-2 bg-green-600 rounded-full mr-3 mt-2"
+                ></span>
+                <span class="text-gray-700">{{ example }}</span>
+              </li>
+              }
+            </ul>
+          </div>
+          }
+        </div>
+        }
+      </div>
+      }
+    </section>
+    }
+
+    <!-- References Section -->
+    @if (blogPost.references && blogPost.references.length > 0) {
+    <section class="mt-16 pt-8 border-t-2 border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="w-1 h-10 bg-green-600 rounded-full mr-4"></span>
+        References & Sources
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @for (reference of blogPost.references; track reference.url) {
+        <a
+          [href]="reference.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 hover:border-green-400 transition"
+        >
+          <div class="flex items-start">
+            <span class="text-green-600 mr-3">🔗</span>
+            <div>
+              <p class="font-semibold text-gray-900 hover:text-green-600">
+                {{ reference.title }}
+              </p>
+              <p class="text-sm text-gray-500 truncate">{{ reference.url }}</p>
+            </div>
+          </div>
+        </a>
+        }
+      </div>
+    </section>
+    }
+
+    <!-- Call to Action -->
+    <div class="mt-12 p-8 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+        Take Action for Our Planet
+      </h3>
+      <p class="text-gray-700 mb-6">
+        Learning about environmental issues is the first step. Now, consider
+        how you can apply these insights in your daily life.
+      </p>
+      <button
+        class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition"
+      >
+        Share This Article
+      </button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,114 @@
+<header class="sticky top-0 z-50 bg-white shadow-md">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a
+          routerLink="/"
+          class="text-2xl font-bold text-green-600 hover:text-green-700 transition"
+        >
+          🌱 The Digital Green Journal
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8">
+        <a
+          routerLink="/"
+          routerLinkActive="text-green-600 border-b-2 border-green-600"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-gray-700 hover:text-green-600 transition px-2 py-1"
+        >
+          Home
+        </a>
+        <a
+          routerLink="/blog"
+          routerLinkActive="text-green-600 border-b-2 border-green-600"
+          class="text-gray-700 hover:text-green-600 transition px-2 py-1"
+        >
+          Blog
+        </a>
+        <a
+          routerLink="/about"
+          routerLinkActive="text-green-600 border-b-2 border-green-600"
+          class="text-gray-700 hover:text-green-600 transition px-2 py-1"
+        >
+          About
+        </a>
+        <a
+          routerLink="/references"
+          routerLinkActive="text-green-600 border-b-2 border-green-600"
+          class="text-gray-700 hover:text-green-600 transition px-2 py-1"
+        >
+          References
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="md:hidden">
+        <button
+          (click)="toggleMenu()"
+          class="text-gray-700 hover:text-green-600 focus:outline-none transition"
+          aria-label="Toggle menu"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            @if (!isMenuOpen()) {
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+            } @else {
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+            }
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (isMenuOpen()) {
+    <div class="md:hidden pb-4 border-t border-gray-200">
+      <a
+        routerLink="/"
+        (click)="closeMenu()"
+        class="block px-2 py-2 text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded"
+      >
+        Home
+      </a>
+      <a
+        routerLink="/blog"
+        (click)="closeMenu()"
+        class="block px-2 py-2 text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded"
+      >
+        Blog
+      </a>
+      <a
+        routerLink="/about"
+        (click)="closeMenu()"
+        class="block px-2 py-2 text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded"
+      >
+        About
+      </a>
+      <a
+        routerLink="/references"
+        (click)="closeMenu()"
+        class="block px-2 py-2 text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded"
+      >
+        References
+      </a>
+    </div>
+    }
+  </nav>
+</header>

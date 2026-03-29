@@ -1,0 +1,202 @@
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-green-50 to-blue-50 py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Text Content -->
+      <div>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          The Digital <span class="text-green-600">Green</span> Journal
+        </h1>
+        <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+          Discover the latest insights on environmental issues affecting our
+          world and the Philippines. Join us in promoting awareness and
+          sustainable practices for a better future.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#recent-posts"
+            class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition text-center"
+          >
+            Explore Articles
+          </a>
+          <a
+            routerLink="/about"
+            class="border-2 border-green-600 text-green-600 hover:bg-green-50 px-8 py-3 rounded-lg font-semibold transition text-center"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="relative">
+        <div class="bg-gradient-to-br from-green-400 to-blue-500 rounded-lg p-8 text-white text-7xl">
+          🌍
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature Cards Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">
+      Our Mission
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="bg-gradient-to-br from-green-50 to-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-4">🌱</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">Raise Awareness</h3>
+        <p class="text-gray-600">
+          Educate readers about critical environmental challenges and their
+          impacts on society.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-4">♻️</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">Promote Action</h3>
+        <p class="text-gray-600">
+          Inspire sustainable practices and practical steps toward environmental
+          preservation.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-gradient-to-br from-cyan-50 to-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-4">🌊</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">Inspire Change</h3>
+        <p class="text-gray-600">
+          Motivate individuals to be stewards of the environment and make
+          positive differences.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Posts Section -->
+<section id="recent-posts" class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Recent Articles</h2>
+      <p class="text-xl text-gray-600">
+        Stay updated with the latest environmental insights and discussions
+      </p>
+    </div>
+
+    <!-- Featured Post (Larger) -->
+    @if (recentPosts[0]) {
+    <div class="mb-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Featured Article -->
+      <div class="lg:col-span-2 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="relative w-full h-80 bg-gray-300 flex items-center justify-center">
+          <img
+            [src]="recentPosts[0].imageUrl"
+            [alt]="recentPosts[0].title"
+            loading="lazy"
+            onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22800%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%23666%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EImage unavailable%3C/text%3E%3C/svg%3E'"
+            width="800"
+            height="400"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="p-8">
+          <span
+            class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-3"
+          >
+            Featured
+          </span>
+          <h3 class="text-3xl font-bold text-gray-900 mb-4">
+            {{ recentPosts[0].title }}
+          </h3>
+          <p class="text-gray-600 text-lg mb-6">
+            {{ recentPosts[0].excerpt }}
+          </p>
+          <div class="flex items-center text-gray-500 text-sm mb-6">
+            <span>{{ recentPosts[0].date | slice : 0 : 10 }}</span>
+            <span class="mx-2">•</span>
+            <span>{{ recentPosts[0].readTime }} min read</span>
+          </div>
+          <a
+            [routerLink]="['/post', recentPosts[0].slug]"
+            class="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold transition"
+          >
+            Read Full Article →
+          </a>
+        </div>
+      </div>
+
+      <!-- Other Recent Posts -->
+      <div class="flex flex-col gap-6">
+        @for (post of recentPosts.slice(1, 3); track post.id) {
+        <a
+          [routerLink]="['/post', post.slug]"
+          class="bg-white p-4 rounded-lg shadow hover:shadow-md transition"
+        >
+          <div class="relative w-full h-32 bg-gray-300 rounded mb-4 overflow-hidden flex items-center justify-center">
+            <img
+              [src]="post.imageUrl"
+              [alt]="post.title"
+              loading="lazy"
+              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22200%22%3E%3Crect fill=%22%23ddd%22 width=%22300%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2216%22 fill=%22%23666%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EImage unavailable%3C/text%3E%3C/svg%3E'"
+              class="w-full h-full object-cover hover:scale-105 transition"
+            />
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2 line-clamp-2">
+            {{ post.title }}
+          </h4>
+          <p class="text-sm text-gray-500">{{ post.date | slice : 0 : 10 }}</p>
+        </a>
+        }
+      </div>
+    </div>
+    }
+
+    <!-- Grid of Posts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (post of allPosts; track post.id) {
+      <app-blog-card [post]="post" />
+      }
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center mt-12">
+      <a
+        href="#blog-archive"
+        class="inline-block border-2 border-green-600 text-green-600 hover:bg-green-50 px-8 py-3 rounded-lg font-semibold transition"
+      >
+        View All Articles
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-16 bg-green-600 text-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-4xl font-bold mb-6">Make a Difference Today</h2>
+    <p class="text-xl mb-8 text-green-100">
+      Understanding environmental issues is the first step toward creating
+      positive change. Learn more and take action.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        routerLink="/about"
+        class="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition text-center"
+      >
+        About This Project
+      </a>
+      <a
+        routerLink="/references"
+        class="border-2 border-white text-white hover:bg-green-700 px-8 py-3 rounded-lg font-semibold transition text-center"
+      >
+        View References
+      </a>
+    </div>
+  </div>
+</section>
